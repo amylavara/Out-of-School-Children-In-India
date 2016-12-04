@@ -15,8 +15,8 @@ The main Idea of the visualization will be shown on the top of the visualization
 	The initial visualization will have Indian map divided as states with a bar chart showing the statistics with respect to age of the children for the country. Clicking on a state will zoom in to the state and show districts of that state along with the bar chart showing the statistics with respect to age of the children for that state. Based on the selection button, hovering over a state will show the tooltip with total out of school children population for that particular state and hovering over a district will show the tooltip with total out of school children population for that district.  Clicking on a district will highlight the district and modify the bar chart to show the statistics with respect to age of the children for that district. Clicking on the same district will zoom out and show the initial Indian map with states.
   
 # Visualization Sources:
-•	https://bl.ocks.org/mbostock/5562380
-•	http://www.tnoda.com/blog/2013-12-07
-•	http://visual.ly/us-map-choropleth-bar-chart?view=true
-•	http://adilmoujahid.com/posts/2015/01/interactive-data-visualization-d3-dc-python-mongodb/
+https://bl.ocks.org/mbostock/5562380
+http://www.tnoda.com/blog/2013-12-07
+http://visual.ly/us-map-choropleth-bar-chart?view=true
+http://adilmoujahid.com/posts/2015/01/interactive-data-visualization-d3-dc-python-mongodb/
 
