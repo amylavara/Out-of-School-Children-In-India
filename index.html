@@ -38,14 +38,122 @@ pointer-events: none;
   stroke: #000;
   stroke-opacity: .7;
 }
+.foot-links a, .foot-links p{
+  display: block;
+  color: rgb(63, 63, 63);
+  transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  text-decoration: none;
+  font-family: OpenSansRegular, Arial, sans-serif;
+  font-size: 13px;
+  color: rgb(63, 63, 63);
+  padding-bottom: 5px;
+  text-shadow: rgb(255, 255, 255) 1px 1px 0px;
+
+}
+
+a:link {
+  color: blue;
+}
+.foot-links img{
+  padding-top: 5px;
+}
+#footer{
+  background: rgb(241, 241, 241);
+  border-top: 1px solid rgb(222, 222, 222);
+  margin-top: -2px;
+  padding-top: 0px;
+  padding-bottom: 5px;
+  padding-left: 25px;
+  margin-left: 85px;
+  margin-right: 85px;
+  margin-bottom: 25px;
+}
+
+.foot-header{
+  font-family: OpenSansBold, Arial, sans-serif;
+  font-size: 18px;
+  color: rgb(63, 63, 63);
+  padding-bottom: 20px;
+  text-shadow: rgb(255, 255, 255) 1px 1px 0px;
+}
+
+#footer .container{
+
+  max-width: 1300px;
+
+  max-width: 1300px;
+
+
+   }
+
+#bottom-footer{
+  margin-bottom: 20px;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+#bottom-footer a{
+  text-decoration: none;
+  color: #626262;
+  -webkit-transition: all .2s ease-in-out;
+  -moz-transition: all .2s ease-in-out;
+  -o-transition: all .2s ease-in-out;
+  -ms-transition: all .2s ease-in-out;
+  transition: all .2s ease-in-out;
+  font-size: 12px;
+  padding: 0px 15px;
+  border-right: 1px solid #ccc;
+  font-family: 'OpenSansRegular', Arial, sans-serif;
+  font-size: 13px;
+  color: #626262;
+  padding: 0 12px;
+  text-shadow: 1px 1px 0 rgba(255,255,255,1);
+}
+#bottom-footer .phone img{
+  margin-right: 7px;
+}
+#bottom-footer .phone .red{
+  font-size: 22px;
+  margin-top: -7px;
+  font-family: 'OpenSansRegular', Arial, sans-serif;
+  font-size: 18px!important;
+  color: #d10029!important;
+  position: relative;
+  top: -5px;
+  text-shadow: 1px 1px 0 rgba(255,255,255,1)!important;
+}
+#bottom-footer .phone .red small{
+  font-family: 'OpenSansRegular', Arial, sans-serif;
+  font-size: 12px!important;
+  display: block;
+  color: #626262!important;
+  text-shadow: 1px 1px 0 rgba(255,255,255,1)!important;
+  margin-top: -5px;
+}
+#final-footer{
+  font-size: 11px;
+  color: #666;
+}
+#final-footer i{
+  font-size: auto;
+}
 
 </style>
 <body>
 
 <h2>India Out Of School Children, 2011</h2>
+    
+<p>Freshly released Census 2011 data has revealed that 8.4 crore children don't go to school at all.</p>
 
-<script src="//d3js.org/d3.v3.min.js"></script>
-<script src="//d3js.org/topojson.v1.min.js"></script>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://d3js.org/topojson.v1.min.js"></script>   
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="https://github.com/harvesthq/chosen-package/blob/master/chosen.css"></script>
 <script>
 var state;
 var width = 900,
@@ -110,8 +218,8 @@ g.call(xAxis).append("text")
 
  function zoom(xyz) {
      console.log("In Zoom");
-     svg.call(zoom.translate(translate).scale(scale).event);
-     
+     svg.attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
+      
      /* svg.selectAll(".district-border")
         //.attr("transform", "translate(" + xyz[0] + "," + xyz[1] + ")scale(" + xyz[2] + ")")
         .attr("transform", "translate(0,0).scale(10)");
@@ -293,17 +401,55 @@ d3.json("indiaST.json", function(error, ut) {
 			.attr("d", path);
 
 
-
-
-    //Append details
-    d3.select("body").append("p").html(
-            "Arjun Mylavarapu <br>Instructor: Suresh Lodha <br>CMPS 165: Data programming for Visualization <br>Fall 2016");
 });
-
-d3.select(self.frameElement).style("height", height + "px")
     
 </script>
 
+<div class='row'>
+        <div id="footer">
+          <div class="container">
+            <div class="row-1">
+              <h3> Created by: </h3>
+                  Arjun Mylavarapu  <br>
+
+              <h3>Created for: </h3> CMPS165, Data Programming for Visualization, Fall 2016
+            </div><!--/col-sm-3-->
+            <br>
+            <div class="col-sm-3">
+              <h3>
+                Files:
+              </h3>
+              <div class="foot-links">
+                  <li>index.html</li>
+                  <li>indiaDST.json</li>
+                  <li>indiaST.json</li>
+                  <li>README.md</li>
+
+
+              </div>
+            </div><!--/col-sm-3-->
+            <div class="col-sm-3" style="margin-left: 5px";>
+              <h3>Data Sources:</h3>
+              <div class="foot-links">
+                <li>The 2011 Census of India</li>
+                <a href="http://www.censusindia.gov.in/2011census/C-series/C12.html" target="_blank" >Out Of School Children</a>
+
+              </div>
+            </div>
+            <div class="col-sm-3" style="margin-left: 75px";>
+              <h3> Code Sources:</h3>
+              <div class="foot-links">
+                <a href="https://bl.ocks.org/mbostock/5562380" target="_blank">bl.ocks.org/mbostock</a>
+                <a href="http://www.tnoda.com/blog/2013-12-07" target="_blank">tnoda</a>
+                <a href="http://visual.ly/us-map-choropleth-bar-chart?view=true" target="_blank">visual.ly</a>
+                <a href="http://adilmoujahid.com/posts/2015/01/interactive-data-visualization-d3-dc-python-mongodb/" target="_blank">adilmoujahid</a>
+                <a href="http://getbootstrap.com/javascript/#modals" target="_blank">getbootstrap.com/javascript/#modals</a>
+                <a href="https://harvesthq.github.io/chosen/" target="_blank">harvesthq.github.io/chosen</a>
+              </div>
+            </div>
+          </div><!--/container-->
+        </div><!--/footer-->
+      </div><!--/row-->
 
 
 </body>
