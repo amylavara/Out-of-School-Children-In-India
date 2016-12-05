@@ -406,7 +406,7 @@ function district_clicked(d) {
             var districtpath = d3.geo.path()
                 .projection(districtprojection);
     var district_id = d.id;
-    console.log(d);
+    //console.log(d);
     create_bar({statecode:d.properties.statecode,districtcode:d.id,name:d.properties.name});
     
     d3.json("indiaDST.json", function(error, districts) {
@@ -456,7 +456,7 @@ function state_clicked(d) {
             //console.log("create_bar");
             create_bar({statecode:state.id,districtcode:"000",name:state.properties.statename});
             
-            console.log(state);
+            //console.log(state);
             //console.log(state_name);
             d3.json("indiaDST.json", function(error, districts) {
                 svg.append("g")
@@ -590,7 +590,7 @@ the difference between .csv, .tsv and .json files. To import a .tsv or
 
 // data.csv contains the country name(key) and its GDP(value)
 // 1 point for explaining the code for reading the data
-console.log(a);
+//console.log(a);
 var csv;
 //The csv file is read and value elements are typecasted to numbers
 if(a.districtcode=="000"){
