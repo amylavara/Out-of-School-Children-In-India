@@ -1,435 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
 <meta charset="utf-8">
-<style>
-svg {
-font: 10px sans-serif;
-}
-.caption {
-font-weight: bold;
-}
-.key path {
-display: none;
-}
-.key line {
-stroke: #000;
-shape-rendering: crispEdges;
-}
-
-div.tooltip {   
-position: absolute;
-text-align: center;
-padding: 2px;
-font: 12px sans-serif;
-background: white;
-border: 0px;
-border-radius: 8px;
-pointer-events: none;
-}    
-    
-.state-border {
-  fill: none;
-  stroke: #000;
-  stroke-opacity: .7;
-}
-
-.district-border {
-  fill: none;
-  stroke: #000;
-  stroke-opacity: .7;
-}
-.foot-links a, .foot-links p{
-  display: block;
-  color: rgb(63, 63, 63);
-  transition: all 0.2s ease-in-out;
-  -webkit-transition: all 0.2s ease-in-out;
-  text-decoration: none;
-  font-family: OpenSansRegular, Arial, sans-serif;
-  font-size: 13px;
-  color: rgb(63, 63, 63);
-  padding-bottom: 5px;
-  text-shadow: rgb(255, 255, 255) 1px 1px 0px;
-
-}
-
-a:link {
-  color: blue;
-}
-.foot-links img{
-  padding-top: 5px;
-}
-#footer{
-  background: rgb(241, 241, 241);
-  border-top: 1px solid rgb(222, 222, 222);
-  margin-top: -2px;
-  padding-top: 0px;
-  padding-bottom: 5px;
-  padding-left: 25px;
-  margin-left: 85px;
-  margin-right: 85px;
-  margin-bottom: 25px;
-}
-
-.foot-header{
-  font-family: OpenSansBold, Arial, sans-serif;
-  font-size: 18px;
-  color: rgb(63, 63, 63);
-  padding-bottom: 20px;
-  text-shadow: rgb(255, 255, 255) 1px 1px 0px;
-}
-
-#footer .container{
-
-  max-width: 1300px;
-
-  max-width: 1300px;
-
-
-   }
-
-#bottom-footer{
-  margin-bottom: 20px;
-  border-top: 1px solid #ccc;
-  border-bottom: 1px solid #ccc;
-  padding-top: 15px;
-  padding-bottom: 15px;
-}
-#bottom-footer a{
-  text-decoration: none;
-  color: #626262;
-  -webkit-transition: all .2s ease-in-out;
-  -moz-transition: all .2s ease-in-out;
-  -o-transition: all .2s ease-in-out;
-  -ms-transition: all .2s ease-in-out;
-  transition: all .2s ease-in-out;
-  font-size: 12px;
-  padding: 0px 15px;
-  border-right: 1px solid #ccc;
-  font-family: 'OpenSansRegular', Arial, sans-serif;
-  font-size: 13px;
-  color: #626262;
-  padding: 0 12px;
-  text-shadow: 1px 1px 0 rgba(255,255,255,1);
-}
-#bottom-footer .phone img{
-  margin-right: 7px;
-}
-#bottom-footer .phone .red{
-  font-size: 22px;
-  margin-top: -7px;
-  font-family: 'OpenSansRegular', Arial, sans-serif;
-  font-size: 18px!important;
-  color: #d10029!important;
-  position: relative;
-  top: -5px;
-  text-shadow: 1px 1px 0 rgba(255,255,255,1)!important;
-}
-#bottom-footer .phone .red small{
-  font-family: 'OpenSansRegular', Arial, sans-serif;
-  font-size: 12px!important;
-  display: block;
-  color: #626262!important;
-  text-shadow: 1px 1px 0 rgba(255,255,255,1)!important;
-  margin-top: -5px;
-}
-#final-footer{
-  font-size: 11px;
-  color: #666;
-}
-#final-footer i{
-  font-size: auto;
-}
-
-</style>
+<link rel="stylesheet" type="text/css" href="style.css"> 
 <body>
 
 <h2>India Out Of School Children, 2011</h2>
     
-<p>Freshly released Census 2011 data has revealed that 8.4 crore children don't go to school at all.</p>
+<p>Freshly released Census 2011 data has revealed that more than 110 million children don't go to school at all.</p>
 
-<script src="//d3js.org/d3.v3.min.js"></script>
-<script src="//d3js.org/topojson.v1.min.js"></script>   
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://d3js.org/topojson.v1.min.js"></script>   
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <script src="//github.com/harvesthq/chosen-package/blob/master/chosen.css"></script>
-<script>
-var state;
-var width = 900,
-height = 700;
-var formatNumber = d3.format(",d");
-var projection = d3.geo.albers()
-.center([0, 20.5937])   //center latitude of India
-.rotate([-78.9629, 0])   //center longitude of India
-.parallels([50, 60])
-.scale(1000)
-.translate([width / 2 - 200, height / 2 + 100 ]);
-
-var path = d3.geo.path()
-.projection(projection);
-
-var color = d3.scale.threshold()
-.domain([1, 3, 5, 10, 15, 20, 25])
-.range([ "#fdd49e", "#fdbb84", "#fc8d59", "#ef6548", "#d7301f", "#b30000", "#7f0000"]);
-    
-var svg = d3.select("body").append("svg")
-    .attr("width", width)
-    .attr("height", height)
-    .attr("id", "#map");
-    
-// A position encoding for the key only.
-var x = d3.scale.linear()
-    .domain([0, 25])
-    .range([0, 480]);
-var xAxis = d3.svg.axis()
-    .scale(x)
-    .orient("bottom")
-    .tickSize(13)
-    .tickValues(color.domain())
-    .tickFormat(function(d) { return d;});
-
-    // Append Div for tooltip to SVG
-var div = d3.select("body")
-            .append("div")
-            .attr("class", "tooltip")
-            .style("opacity", 0);
-
-var g = svg.append("g")
-    .attr("class", "key")
-    .attr("transform", "translate(40,40)");
-g.selectAll("rect")
-    .data(color.range().map(function(d, i) {
-                return {
-x0: i ? x(color.domain()[i - 1]) : x.range()[0],
-x1: i < color.domain().length ? x(color.domain()[i]) : x.range()[1],
-z: d
-};
-}))
-.enter().append("rect")
-.attr("height", 8)
-.attr("x", function(d) { return d.x0; })
-.attr("width", function(d) { return d.x1 - d.x0; })
-.style("fill", function(d) { return d.z; });
-g.call(xAxis).append("text")
-.attr("class", "caption")
-.attr("y", -6)
-.text("Out Of School Children in Millions");
-
- function zoom(xyz) {
-     console.log("In Zoom");
-     svg.attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
-      
-     /* svg.selectAll(".district-border")
-        //.attr("transform", "translate(" + xyz[0] + "," + xyz[1] + ")scale(" + xyz[2] + ")")
-        .attr("transform", "translate(0,0).scale(10)");
-     svg.selectAll(".districts")
-        //.attr("transform", "translate(" + xyz[0] + "," + xyz[1] + ")scale(" + xyz[2] + ")")
-        .attr("transform", "translate(0,0).scale(10)");
-        */
-}
-function get_xyz(d) {
-      var bounds = path.bounds(d);
-      var w_scale = (bounds[1][0] - bounds[0][0]) / width;
-      var h_scale = (bounds[1][1] - bounds[0][1]) / height;
-      var z = .96 / Math.max(w_scale, h_scale);
-      var x = (bounds[1][0] + bounds[0][0]) / 2;
-      var y = (bounds[1][1] + bounds[0][1]) / 2 + (height / z / 6);
-      return [x, y, z];
-}
-    
-
-    function state_clicked(d) {
-      g.selectAll("#states").remove();
-      if (d && state !== d) {
-        var xyz = get_xyz(d);
-        state = d;
-        state_name = state.properties.name;
-        
-        d3.json("indiaDST.json", function(error, districts) {
-          g.append("g")
-            .attr("id", "#districts")
-            .selectAll("path")
-            .data(topojson.feature(districts, districts.objects.Dist).features.filter(function(d) { return state_name == d.properties.statename; }))
-            .enter()
-            .append("path")
-            .attr("id", function(d) { return d.properties.name; })
-            .attr("class", "#districts")
-            .attr("d", path);
-          zoom(xyz);
-        });      
-      } else {
-        var xyz = [width / 2, height / 1.5, 1];
-        zoom(xyz);
-      }
-    }
-    
-    function tmp_clicked(d) {
-        console.log(document.getElementsByClassName("#states"));
-        var cur_states = document.getElementsByClassName('#states');
-
-        // Now remove them
-        var len = cur_states.length;
-        for (var i = 0; i < len; i++) {
-            cur_states[0].parentElement.removeChild(cur_states[0]);
-        }
-        console.log(document.getElementsByClassName('state-border'));
-        document.getElementsByClassName('state-border')[0].parentElement.removeChild(document.getElementsByClassName('state-border')[0]);
-        
-        if (d && state !== d) {
-            var xyz = get_xyz(d);
-            state = d;
-            var state_name = state.properties.statename;
-            var stateprojection = d3.geo.albers()
-                .center([0, xyz[1]])   //center latitude of India
-                .rotate([xyz[0], 0])   //center longitude of India
-                .parallels([50, 60])
-                .scale(1000)
-                .translate([width / 2 - 200, height / 2 + 100 ]);
-
-            var statepath = d3.geo.path()
-                .projection(projection);
-            
-            console.log(xyz);
-            console.log(state);
-            console.log(state_name);
-            d3.json("indiaDST.json", function(error, districts) {
-                
-                svg.append("g")
-                  .attr("class", "#districts")
-                  .attr("clip-path", "url(#clip-land)")
-                .selectAll("path")
-                .data(topojson.feature(districts, districts.objects.Dist).features)
-                  //.data(d3.nest()
-                    //.key(function(d) { return color(d.properties.outofschool * 0.000001); })
-                    //.entries(states.features.filter(function(d) { return [d.properties.statename,d.properties.outofschool]; })))
-                .enter().append("path")
-                  .style("fill", function(d) { return color(d.properties.outofschool * 0.00001); })
-                    .attr("d", path)
-                .on("click", tmp_clicked)
-                .on("mouseover", function(d) {
-                                d3.select(this).attr("class", "highlight");
-                                div.transition()
-                                    .duration(200)
-                                    .style("opacity", .9);
-                                div.style("left", (d3.event.pageX) + "px")
-                                    .style("top", (d3.event.pageY - 28) + "px");
-                                div.append("div").text(d.properties.name);
-                                div.append("div").text("Out of School Children: "+d.properties.outofschool);
-                        })
-                        // fade out tooltip on mouse out
-                        .on("mouseout", function(d) {
-                            d3.select(this).classed("highlight", false);
-                            div.selectAll("*").remove();
-                            div.transition()
-                                .duration(0)
-                                .style("opacity", 0);
-                        });
-                
-                svg.append("path")
-                .datum(topojson.mesh(districts, districts.objects.Dist))
-                .attr("class", "district-border")
-                .attr("d", path);
-                
-                zoom(xyz);
-            });
-        }
-        
-    }
-
-
-
- svg.append("rect")
-    .attr("class", "background")
-    .attr("width", width)
-    .attr("height", height)
-    .style("opacity", 0)
-    .on("click", tmp_clicked);
-
-
-d3.json("indiaST.json", function(error, ut) {
-    if (error) throw error;
-    var states = topojson.feature(ut, ut.objects.IND_STATE);
-
-    // Group tracts by color for faster rendering.
-    svg.append("g")
-    .attr("class", "#states")
-    .attr("clip-path", "url(#clip-land)")
-    .selectAll("path")
-    //.data(d3.nest()
-    //		.key(function(d) { return color(d.properties.outofschool * 0.000001); })
-    //        .entries(states.features))
-            //.entries(states.features.filter(function(d) { return d.properties.outofschool; })))
-    .datum(topojson.feature(ut, ut.objects.IND_STATE))
-         .attr("class", "state-border")
-         .attr("d", path);
-    
-    svg.append("g")
-      .attr("class", "#states")
-      .attr("clip-path", "url(#clip-land)")
-    .selectAll("path")
-    .data(topojson.feature(ut, ut.objects.IND_STATE).features)
-      //.data(d3.nest()
-        //.key(function(d) { return color(d.properties.outofschool * 0.000001); })
-        //.entries(states.features.filter(function(d) { return [d.properties.statename,d.properties.outofschool]; })))
-    .enter().append("path")
-      .style("fill", function(d) { return color(d.properties.outofschool * 0.000001); })
-		.attr("d", path)
-    .on("click", tmp_clicked)
-    .on("mouseover", function(d) {
-                    d3.select(this).attr("class", "highlight");
-                    div.transition()
-                        .duration(200)
-                        .style("opacity", .9);
-                    div.style("left", (d3.event.pageX) + "px")
-                        .style("top", (d3.event.pageY - 28) + "px");
-                    div.append("div").text(d.properties.statename);
-                    div.append("div").text("Out of School Children: "+d.properties.outofschool);
-            })
-            // fade out tooltip on mouse out
-            .on("mouseout", function(d) {
-                d3.select(this).classed("highlight", false);
-                div.selectAll("*").remove();
-                div.transition()
-                    .duration(0)
-                    .style("opacity", 0);
-            });
-    
-    svg.append("path")
-			.datum(topojson.mesh(ut, ut.objects.IND_STATE))
-			.attr("class", "state-border")
-			.attr("d", path);
-
-
-});
-    
-</script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="script.js"></script>
 
 <div class='row'>
         <div id="footer">
           <div class="container">
             <div class="row-1">
-              <h3> Created by: </h3>
+              <h4> Created by: </h4>
                   Arjun Mylavarapu  <br>
 
-              <h3>Created for: </h3> CMPS165, Data Programming for Visualization, Fall 2016
+              <h4>Created for: </h4> CMPS165, Data Programming for Visualization, Fall 2016
             </div><!--/col-sm-3-->
             <br>
             <div class="col-sm-3">
-              <h3>
+              <h4>
                 Files:
-              </h3>
+              </h4>
               <div class="foot-links">
                   <li>index.html</li>
+                  <li>style.css</li>
+                  <li>script.js</li>
+                  <li>statebar.csv</li>
+                  <li>districtbar.csv</li>
                   <li>indiaDST.json</li>
                   <li>indiaST.json</li>
                   <li>README.md</li>
 
-
               </div>
             </div><!--/col-sm-3-->
             <div class="col-sm-3" style="margin-left: 5px";>
-              <h3>Data Sources:</h3>
+              <h4>Data Sources:</h4>
               <div class="foot-links">
                 <li>The 2011 Census of India</li>
                 <a href="http://www.censusindia.gov.in/2011census/C-series/C12.html" target="_blank" >Out Of School Children</a>
@@ -437,7 +51,7 @@ d3.json("indiaST.json", function(error, ut) {
               </div>
             </div>
             <div class="col-sm-3" style="margin-left: 75px";>
-              <h3> Code Sources:</h3>
+              <h4> Code Sources:</h4>
               <div class="foot-links">
                 <a href="https://bl.ocks.org/mbostock/5562380" target="_blank">bl.ocks.org/mbostock</a>
                 <a href="http://www.tnoda.com/blog/2013-12-07" target="_blank">tnoda</a>
