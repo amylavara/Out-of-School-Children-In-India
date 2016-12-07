@@ -1,13 +1,13 @@
 var state;
-var width = 1300,
-height = 550;
+var width = 1100,
+height = 1100;
 var formatNumber = d3.format(",d");
 var projection = d3.geo.albers()
 .center([0, 20.5937])   //center latitude of India
 .rotate([-78.9629, 0])   //center longitude of India
 .parallels([50, 60])
 .scale(1000)
-.translate([width / 2 - 400, height / 2 + 80 ]);
+.translate([400, 400 ]);
 
 var path = d3.geo.path()
 .projection(projection);
@@ -305,18 +305,18 @@ function create_bar(a){
     }
 
 var margin = {top: 10, right: 40, bottom: 150, left: 50},
-    width = 600 - margin.left - margin.right,
+    width = 1000 - margin.left - margin.right,
     height = 400 - margin.top - margin.bottom;
     
     svgn = svg.append("g")
     .attr("class", "barchart")
-    .attr("transform", "translate(650,200)");
+    .attr("transform", "translate(120,750)");
 
 
 // Define X and Y SCALE.
 
 var xScale = d3.scale.ordinal()
-    .rangeRoundBands([0, width], 0.7);
+    .rangeRoundBands([0, width], 0.6);
 
 var yScale = d3.scale.linear()
     .range([height, 0]);
@@ -335,13 +335,13 @@ var xAxis = d3.svg.axis()
 var yAxis = d3.svg.axis() 
     .scale(yScale)
     .orient("left")
-    .ticks(8)
+    .ticks(10)
     .tickSize(7,1);
     
 var yAxis2 = d3.svg.axis() 
     .scale(yScale2)
     .orient("right")
-    .ticks(8)
+    .ticks(10)
     .tickSize(7,1);
 
 var csv;
@@ -380,7 +380,7 @@ if(a.statecode != "00" || a.districtcode!="000"){
             .attr("height", 0) 
             .attr("y", height)
             .attr({
-                "x": function(d) { return xScale(d.key)+5; },
+                "x": function(d) { return xScale(d.key)+12; },
                 "y": function(d) { return yScale2(Math.round(d.value/100)/100); },
                 "width": xScale.rangeBand(),
                 "height": function(d) { return  height - yScale2(Math.round(d.value/100)/100); },
@@ -398,12 +398,12 @@ if(a.statecode != "00" || a.districtcode!="000"){
                  return Math.round(d.value/100)/100;
              })
              .attr("x", function(d, i) {
-                 return (i * 32)+31;
+                 return (i * 58)+60;
              })
              .attr("y", function(d) {
                  return yScale2(Math.round(d.value/100)/100)+15;
              })
-             .attr("style","text-anchor:start;font-weight:bold;font-family:sans-serif;font-size:8px;fill:black;");
+             .attr("style","text-anchor:middle;font-weight:bold;font-family:sans-serif;font-size:9px;fill:black;");
 
 
         var nametxt;
@@ -422,9 +422,9 @@ if(a.statecode != "00" || a.districtcode!="000"){
           .attr("transform", "translate(" + width + ",0)")
           .call(yAxis2)
         .append("text")
-          .attr("transform", "translate(" + (width/2-160) + ",0)rotate(-90)")
+          .attr("transform", "rotate(-90)")
           .attr("x", -height/2) 
-          .attr("y", -40)
+          .attr("y", 50)
           .text(txt)
           .attr("style", "text-anchor: middle;font-weight: bold; font-size: 14px;fill: #7f0000");
 
@@ -463,7 +463,7 @@ d3.csv("statebar.csv",function(error, data1){
         .attr("height", 0) 
         .attr("y", height)
         .attr({
-            "x": function(d) { return xScale(d.key)-5; },
+            "x": function(d) { return xScale(d.key)-11; },
             "y": function(d) { return yScale(Math.round(d.value/10000)/100); },
             "width": xScale.rangeBand(),
             "height": function(d) { return  height - yScale(Math.round(d.value/10000)/100); },
@@ -485,12 +485,12 @@ d3.csv("statebar.csv",function(error, data1){
              return Math.round(d.value/10000)/100;
          })
          .attr("x", function(d, i) {
-             return (i * 32)+30;
+             return (i * 58)+37;
          })
          .attr("y", function(d) {
              return yScale(Math.round(d.value/10000)/100)+15;
          })
-         .attr("style","text-anchor:end;font-weight:bold;font-family:sans-serif;font-size:8px;fill:black;");
+         .attr("style","text-anchor:middle;font-weight:bold;font-family:sans-serif;font-size:9px;fill:black;");
     
     // Draw xAxis and postion the label 
     svgn.append("g")
