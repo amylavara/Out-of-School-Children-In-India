@@ -26,13 +26,15 @@ pointer-events: none;
 .state-border {
   fill: none;
   stroke: #000;
-  stroke-opacity: .7;
+  stroke-opacity: 1;
+  stroke-width: 0.1;
 }
 
 .district-border {
   fill: none;
   stroke: #000;
   stroke-opacity: .7;
+  stroke-width: 0.1;
 }
 .foot-links a, .foot-links p{
   display: block;
