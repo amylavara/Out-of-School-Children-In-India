@@ -155,7 +155,7 @@ function rect_clicked(d) {
       .attr("x", 40)
       .attr("y", 80)
       .style("text-anchor", "middle")
-      .text("Select a State to transition")
+      .text("Select a State to transition or hover over the state to show total OSC for the state.")
       .attr("style","font-weight: normal; font-size: 12px;");
     });
     
@@ -275,7 +275,7 @@ function state_clicked(d) {
                   .attr("x", 40)
                   .attr("y", 80)
                   .style("text-anchor", "middle")
-                  .text("Select a District to transition or click away from the state to return to previous map")
+                  .text("Select a District to transition or click away from the state to return to previous map or hover over the district to show total OSC for the district.")
                   .attr("style","font-weight: normal; font-size: 12px;");
             });
         }
